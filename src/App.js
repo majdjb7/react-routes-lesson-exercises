@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Home from './components/Home'
 import About from './components/About'
 import Fentities from './components/Fentities';
+import Fentity from './components/Fentity';
 class App extends Component {
   constructor() {
     super()
@@ -26,20 +27,16 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <div id="home-background">
-            <Route path="/" exact component={Home}/>
-            <Route path="/about" exact render={() => <About items={Object.keys(state)} />} />
-          </div>
+          <div id="home-background"></div>
           <div id="main-links">
-            {/* Main Links */}
             <Link to="/">Home</Link>
             <Link to="/About">About</Link>
-
           </div>
-          {/* Routes go here v */}
-          <Route path="/directory/:fentities" exact render={({ match }) => <Fentities match={match} state={state}/>}/>
-          {/* Routes go here ^ */}
 
+          <Route path="/" exact component={Home}/>
+          <Route path="/about" exact render={() => <About items={Object.keys(state)} />} />
+          <Route path="/directory/:fentities" exact render={({ match }) => <Fentities match={match} state={state}/>}/>
+          <Route path="/directory/:fentities/:name" exact render={({match}) => <Fentity match={match} state={state}/>} />
         </div>
       </Router>
       );
