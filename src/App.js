@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import Home from './components/Home'
+import About from './components/About'
+import Fentities from './components/Fentities';
 class App extends Component {
   constructor() {
     super()
@@ -21,17 +24,26 @@ class App extends Component {
   render() {
     const state = this.state
     return (
-      <div className="App">
-        <div id="home-background"></div>
-        <div id="main-links">
-          {/* Main Links */}
-        </div>
-        {/* Routes go here v */}
+      <Router>
+        <div className="App">
+          <div id="home-background">
+            <Route path="/" exact component={Home}/>
+            <Route path="/about" exact render={() => <About items={Object.keys(state)} />} />
+          </div>
+          <div id="main-links">
+            {/* Main Links */}
+            <Link to="/">Home</Link>
+            <Link to="/About">About</Link>
 
-        {/* Routes go here ^ */}
-      </div>
-    );
-  }
+          </div>
+          {/* Routes go here v */}
+          <Route path="/directory/:fentities" exact render={({ match }) => <Fentities match={match} state={state}/>}/>
+          {/* Routes go here ^ */}
+
+        </div>
+      </Router>
+      );
+    }
 }
 
 export default App;
